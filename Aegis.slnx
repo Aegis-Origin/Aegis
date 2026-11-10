@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+   <Project Path="Sandbox/Sandbox.vcxproj" Id="a5bcd354-5905-4378-a411-29ed499da0ea" />
+  <Project Path="Aegis/Aegis.vcxproj" Id="1f01631a-2629-436b-bc55-3fe1386149f6" />
+</Solution>
