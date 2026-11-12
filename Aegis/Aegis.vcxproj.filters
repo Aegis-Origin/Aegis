@@ -27,9 +27,15 @@
     <ClInclude Include="src\Aegis\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aegis\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aegis\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aegis\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
