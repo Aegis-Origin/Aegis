@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "Dockerfile"
+      - ".dockerignore"
+      - ".github/workflows/docker.yml"
+  pull_request:
+    paths-ignore:
+      - "Dockerfile"
+      - ".dockerignore"
+      - ".github/workflows/docker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  format:
+    name: clang-format
+    runs-on: ubuntu-latest
+
+    container:
+      image: "ghcr.io/aegis-origin/aegis-ci:latest"
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check formatting
+        run: |
+          clang-format --version
+          git ls-files -z '*.cpp' '*.hpp' '*.h' '*.inl' \
+            | xargs -0 --no-run-if-empty clang-format --dry-run --Werror
+
+  tidy:
+    name: clang-tidy
+    runs-on: ubuntu-latest
+
+    container:
+      image: ${{ vars.AG_CI_IMAGE || 'ghcr.io/aegis-origin/aegis-ci:latest' }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Configure
+        run: cmake --preset release
+
+      - name: Run clang-tidy
+        run: run-clang-tidy -p Build/release -quiet "${GITHUB_WORKSPACE}/(Aegis|Sandbox)/Source/"
+
+  build:
+    name: Build (${{ matrix.compiler.name }}, ${{ matrix.preset }})
+    runs-on: ubuntu-latest
+    needs: [format, tidy]
+
+    container:
+      image: ${{ vars.AG_CI_IMAGE || 'ghcr.io/aegis-origin/aegis-ci:latest' }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [release]
+        compiler:
+          - { name: clang, cc: clang, cxx: clang++ }
+    env:
+      CC: ${{ matrix.compiler.cc }}
+      CXX: ${{ matrix.compiler.cxx }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Configure
+        run: cmake --preset ${{ matrix.preset }}
+
+      - name: Build
+        run: cmake --build --preset ${{ matrix.preset }}
