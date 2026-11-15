@@ -13,12 +13,12 @@ namespace Aegis
     public:
         static void Init();
 
-        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return m_CoreLogger; }
-        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return m_ClientLogger; }
+        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return m_coreLogger; }
+        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return m_clientLogger; }
 
     private:
-        static std::shared_ptr<spdlog::logger> m_CoreLogger;
-        static std::shared_ptr<spdlog::logger> m_ClientLogger;
+        static std::shared_ptr<spdlog::logger> m_coreLogger;
+        static std::shared_ptr<spdlog::logger> m_clientLogger;
     };
 }  // namespace Aegis
 
