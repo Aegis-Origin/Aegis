@@ -64,7 +64,7 @@ jobs:
         run: run-clang-tidy -p Build/release -quiet "${GITHUB_WORKSPACE}/(Aegis|Sandbox)/Source/"
 
   build:
-    name: Build (${{ matrix.compiler.name }}, ${{ matrix.preset }})
+    name: Build
     runs-on: ubuntu-latest
     needs: [format, tidy]
 
