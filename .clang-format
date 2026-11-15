@@ -1,0 +1,41 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+
+BreakBeforeBraces: Allman
+NamespaceIndentation: All
+AccessModifierOffset: -4
+IndentAccessModifiers: false
+PointerAlignment: Left
+DerivePointerAlignment: false
+
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlignConsecutiveMacros: Consecutive
+FixNamespaceComments: true
+SortIncludes:
+  Enabled: true
+  IgnoreCase: false
+IncludeBlocks: Regroup
+IncludeIsMainRegex: "$^"
+IncludeCategories:
+  # The first matching rule wins, so keep the most specific rules first.
+  # 2. Aegis headers
+  - Regex: '^[<"]Aegis/'
+    Priority: 2
+  # 4. C++ standard library (extensionless headers, e.g. <memory>, <cstdint>)
+  - Regex: "^<[a-z_0-9]+>$"
+    Priority: 4
+  # 3. Third party: other angle-bracket includes and quoted ones with a path
+  - Regex: '^<|^"[^"]*/'
+    Priority: 3
+  # 1. Local quoted includes without a path (e.g. "Application.hpp")
+  - Regex: '^"'
+    Priority: 1
+...

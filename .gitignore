@@ -7,3 +7,6 @@ bin-int/
 # visual studio
 .vs/
 *.user
+
+# cmake
+compile_commands.json

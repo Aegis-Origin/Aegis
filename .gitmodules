@@ -1,3 +1,0 @@
-[submodule "Aegis/vendor/spdlog"]
-	path = Aegis/vendor/spdlog
-	url = https://github.com/gabime/spdlog
