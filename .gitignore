@@ -1,5 +1,9 @@
-.vs/
+# build folders
 bin/
 bin-int/
+[Oo]ut/
+[Bb]uild/
+
+# visual studio
+.vs/
 *.user
-/build/
