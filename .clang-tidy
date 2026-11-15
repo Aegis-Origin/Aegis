@@ -30,10 +30,10 @@ CheckOptions:
   readability-identifier-naming.EnumConstantCase: CamelCase
   readability-identifier-naming.FunctionCase: CamelCase
   readability-identifier-naming.MethodCase: CamelCase
-  readability-identifier-naming.VariableCase: pascalCase
-  readability-identifier-naming.ParameterCase: pascalCase
-  readability-identifier-naming.MemberCase: pascalCase
-  readability-identifier-naming.PrivateMemberCase: pascalCase
+  readability-identifier-naming.VariableCase: camelBack
+  readability-identifier-naming.ParameterCase: camelBack
+  readability-identifier-naming.MemberCase: camelBack
+  readability-identifier-naming.PrivateMemberCase: camelBack
   readability-identifier-naming.PrivateMemberPrefix: m_
   readability-identifier-naming.TemplateParameterCase: CamelCase
   readability-identifier-naming.GlobalConstexprVariableCase: UPPER_CASE
