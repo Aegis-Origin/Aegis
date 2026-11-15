@@ -1,0 +1,7 @@
+D:/APPS/Aegis/out/build/x64-debug/CMakeFiles/Aegis.dir
+D:/APPS/Aegis/out/build/x64-debug/CMakeFiles/Sandbox.dir
+D:/APPS/Aegis/out/build/x64-debug/CMakeFiles/edit_cache.dir
+D:/APPS/Aegis/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+D:/APPS/Aegis/out/build/x64-debug/Aegis/vendor/spdlog/CMakeFiles/spdlog.dir
+D:/APPS/Aegis/out/build/x64-debug/Aegis/vendor/spdlog/CMakeFiles/edit_cache.dir
+D:/APPS/Aegis/out/build/x64-debug/Aegis/vendor/spdlog/CMakeFiles/rebuild_cache.dir
