@@ -1,0 +1,42 @@
+---
+Checks: >-
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  concurrency-*,
+  cppcoreguidelines-pro-type-member-init,
+  modernize-deprecated-headers,
+  modernize-redundant-void-arg,
+  modernize-use-default-member-init,
+  modernize-use-noexcept,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-using,
+  performance-enum-size,
+  performance-move-const-arg,
+  performance-unnecessary-copy-initialization,
+  readability-else-after-return,
+  readability-identifier-naming
+
+WarningsAsErrors: "*"
+
+HeaderFilterRegex: '.*/(Aegis|Sandbox)/(Include|Source)/.*\.hpp'
+
+CheckOptions:
+  readability-identifier-naming.NamespaceCase: CamelCase
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.StructCase: CamelCase
+  readability-identifier-naming.EnumCase: CamelCase
+  readability-identifier-naming.EnumConstantCase: CamelCase
+  readability-identifier-naming.FunctionCase: CamelCase
+  readability-identifier-naming.MethodCase: CamelCase
+  readability-identifier-naming.VariableCase: pascalCase
+  readability-identifier-naming.ParameterCase: pascalCase
+  readability-identifier-naming.MemberCase: pascalCase
+  readability-identifier-naming.PrivateMemberCase: pascalCase
+  readability-identifier-naming.PrivateMemberPrefix: m_
+  readability-identifier-naming.TemplateParameterCase: CamelCase
+  readability-identifier-naming.GlobalConstexprVariableCase: UPPER_CASE
+  readability-identifier-naming.GlobalConstantCase: UPPER_CASE
+  readability-identifier-length.IgnoredParameterNames: "^[A-Z]$"
+...

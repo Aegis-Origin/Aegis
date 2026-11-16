@@ -1,46 +1,65 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24 FATAL_ERROR)
 
-project(Aegis LANGUAGES CXX)
+# -----------------------------------------------------------------------------
+# Project
+# -----------------------------------------------------------------------------
+project(
+    Aegis
+    VERSION 0.1.0
+    LANGUAGES CXX
+)
 
-if(NOT WIN32)
-    message(FATAL_ERROR "Aegis currently only supports Windows.")
-endif()
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 
+# -----------------------------------------------------------------------------
+# Includes
+# -----------------------------------------------------------------------------
+include(AegisFunctions)
+include(AegisDependencies)
+include(GenerateExportHeader)
+
+find_package(Git QUIET)
+
+# -----------------------------------------------------------------------------
+# Options
+# -----------------------------------------------------------------------------
+option(AG_BUILD_STRICT "Build with warnings as errors" ON)
+option(AG_ENABLE_ASAN "Build with address sanitization" OFF)
+option(AG_ENABLE_UBSAN "Build with undefined behavior sanitization" OFF)
+option(AG_ENABLE_TSAN "Build with thread sanitization" OFF)
+
+# -----------------------------------------------------------------------------
+# Standard
+# -----------------------------------------------------------------------------
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
-# Keep the engine DLL next to the executable for each build configuration.
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/$<CONFIG>")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Aegis/vendor/spdlog/CMakeLists.txt")
-    message(FATAL_ERROR "spdlog is missing. Run: git submodule update --init --recursive")
-endif()
-add_subdirectory(Aegis/vendor/spdlog EXCLUDE_FROM_ALL)
+# -----------------------------------------------------------------------------
+# Output Directories
+# -----------------------------------------------------------------------------
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
-add_library(Aegis SHARED
-    Aegis/src/Aegis.h
-    Aegis/src/Aegis/Application.cpp
-    Aegis/src/Aegis/Application.h
-    Aegis/src/Aegis/Core.h
-    Aegis/src/Aegis/EntryPoint.h
-    Aegis/src/Aegis/Log.cpp
-    Aegis/src/Aegis/Log.h
-)
-target_compile_features(Aegis PUBLIC cxx_std_20)
-target_include_directories(Aegis PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Aegis/src")
-target_compile_definitions(Aegis
-    PUBLIC AG_PLATFORM_WINDOWS
-    PRIVATE AG_BUILD_DLL
-)
-# Log.h exposes spdlog types, so consumers need its headers as well.
-target_link_libraries(Aegis PUBLIC spdlog::spdlog_header_only)
-
-add_executable(Sandbox Sandbox/src/SandboxApp.cpp)
-target_link_libraries(Sandbox PRIVATE Aegis)
-
-if(MSVC)
-    target_compile_options(Aegis PRIVATE /W3 /permissive- /utf-8)
-    target_compile_options(Sandbox PRIVATE /W3 /permissive- /utf-8)
+# -----------------------------------------------------------------------------
+# Platform Detection
+# -----------------------------------------------------------------------------
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    message(STATUS "Building Aegis for Windows")
+    set(AG_PLATFORM_WINDOWS ON)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    message(STATUS "Building Aegis for Linux")
+    set(AG_PLATFORM_LINUX ON)
+else()
+    message(FATAL_ERROR "Aegis is not supported on ${CMAKE_SYSTEM_NAME}")
 endif()
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT Sandbox)
+# -----------------------------------------------------------------------------
+# Subdirectories
+# -----------------------------------------------------------------------------
+add_subdirectory(Aegis)
+add_subdirectory(Sandbox)

@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"D:/APPS/Aegis/out/build/x64-debug/cmake_install.cmake",
-		"D:/APPS/Aegis/out/build/x64-debug/Aegis/vendor/spdlog/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

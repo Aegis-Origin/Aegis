@@ -1,5 +1,12 @@
-.vs/
+# build folders
 bin/
 bin-int/
+[Oo]ut/
+[Bb]uild/
+
+# visual studio
+.vs/
 *.user
-/build/
+
+# cmake
+compile_commands.json

@@ -1,7 +1,0 @@
-# ninja log v7
-5	46	8164575863010404	CMakeFiles/Aegis.dir/Aegis/src/Aegis/Application.cpp.obj	47b9ef22e1434ec3
-13	2169	8164575863095559	CMakeFiles/Sandbox.dir/Sandbox/src/SandboxApp.cpp.obj	a4f8b3c39eade2e7
-9	2302	8164575863055517	CMakeFiles/Aegis.dir/Aegis/src/Aegis/Log.cpp.obj	12290ce865bdf078
-2302	2771	8164575890237800	bin/Debug/Aegis.dll	4e9bd7e897c8911a
-2302	2771	8164575890237800	lib/Debug/Aegis.lib	4e9bd7e897c8911a
-2771	3182	8164575890676700	bin/Debug/Sandbox.exe	a87c8866d9a43dd4
